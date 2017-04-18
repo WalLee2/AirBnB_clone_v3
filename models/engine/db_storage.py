@@ -91,6 +91,7 @@ class DBStorage:
         for i in self.__session.query(self.__models_available[cls]):
             if id == i.__dict__['id']:
                 return {i.__dict__['id']: i}
+        return None
 
     def count(self, cls=None):
         """
