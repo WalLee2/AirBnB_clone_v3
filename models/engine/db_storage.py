@@ -76,7 +76,8 @@ class DBStorage:
         be in the init method
         """
         Base.metadata.create_all(self.__engine)
-        self.__session = scoped_session(sessionmaker(bind=self.__engine))
+        self.__session = scoped_session(sessionmaker(
+            bind=self.__engine, expire_on_commit=False))
 
     def close(self):
         """
@@ -91,6 +92,7 @@ class DBStorage:
         for i in self.__session.query(self.__models_available[cls]):
             if id == i.__dict__['id']:
                 return {i.__dict__['id']: i}
+        return None
 
     def count(self, cls=None):
         """
