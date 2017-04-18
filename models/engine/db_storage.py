@@ -97,6 +97,6 @@ class DBStorage:
         count the number of objects in a storage
         """
         if cls is not None:
-            return(self.__session.query(cls).count())
+            return(self.__session.query(self.__models_available[cls]).count())
         else:
             return(len(self.all()))
