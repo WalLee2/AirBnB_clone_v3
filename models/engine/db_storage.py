@@ -83,3 +83,20 @@ class DBStorage:
         close a session
         """
         self.__session.remove()
+
+    def get(self, cls, id):
+        """
+        Retrieving an object
+        """
+        for i in self.__session.query(self.__models_available[cls]):
+            if id == i.__dict__['id']:
+                return {i.__dict__['id']: i}
+
+    def count(self, cls=None):
+        """
+        count the number of objects in a storage
+        """
+        if cls is not None:
+            return(self.__session.query(cls).count())
+        else:
+            return(len(self.all()))
