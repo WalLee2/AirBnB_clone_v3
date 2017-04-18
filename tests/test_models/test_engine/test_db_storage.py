@@ -69,5 +69,17 @@ class Test_DBStorage(unittest.TestCase):
         for value in self.store.all().values():
             self.assertIsInstance(value.created_at, datetime)
 
+    def test_get(self):
+        a = self.get(self.model, cls="Amenity", id="0234")
+        self.assertIs(type(a), dict)
+        b = self.get(self.model, cls=None, id="0234")
+        self.assertIs(type(b), None)
+
+    def test_count(self):
+        a = self.count(cls="Amenity")
+        self.assertEqual(len(self.store.all("Amenity")), a)
+        b = self.count(cls=None)
+        self.assertEqual(len(self.store.all()), b)
+
 if __name__ == "__main__":
     unittest.main()
