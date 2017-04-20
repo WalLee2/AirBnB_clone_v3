@@ -89,9 +89,10 @@ class DBStorage:
         """
         Retrieving an object
         """
-        for i in self.__session.query(self.__models_available[cls]):
-            if id == i.__dict__['id']:
-                return {i.__dict__['id']: i}
+        if (cls in self.__models_available.keys()):
+            for i in self.__session.query(self.__models_available[cls]):
+                if id == i.__dict__['id']:
+                    return {i.__dict__['id']: i}
         return None
 
     def count(self, cls=None):

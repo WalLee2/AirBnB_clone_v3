@@ -20,14 +20,15 @@ class Test_DBStorage(unittest.TestCase):
     """
     @classmethod
     def setUpClass(cls):
-        """create a session"""
+        storage.reload()
+
+    def setUp(self):
         test_args = {'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
                      'id': "0234",
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900),
                      'name': 'wifi'}
-        cls.model = Amenity(**test_args)
-        storage.reload()
-        cls.test_len = 0
+        self.model = Amenity(**test_args)
+        self.test_len = 0
 
     def test_all(self):
         output = storage.all('Amenity')
@@ -36,7 +37,6 @@ class Test_DBStorage(unittest.TestCase):
     def test_new(self):
         # note: we cannot assume order of test is order written
         self.test_len = len(storage.all())
-        self.assertEqual(len(storage.all()), self.test_len)
         self.model.save()
         self.assertEqual(len(storage.all()), self.test_len + 1)
         a = Amenity(name="thing")
@@ -44,7 +44,7 @@ class Test_DBStorage(unittest.TestCase):
         self.assertEqual(len(storage.all()), self.test_len + 2)
 
         storage.delete(a)
-#        storage.delete(self.model)
+        storage.delete(self.model)
         storage.save()
 
     def test_save(self):
@@ -71,6 +71,23 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(self.model)
         storage.delete(a)
         storage.save()
+
+    def test_get(self):
+        self.model.save()
+        a = storage.get("Amenity", "0234")
+        self.assertIs(type(a), dict)
+        b = storage.get(None, "0234")
+        self.assertIs(None, b)
+
+        storage.delete(self.model)
+        storage.save()
+
+    def test_count(self):
+        a = storage.count(cls="Amenity")
+        self.assertEqual(len(storage.all("Amenity")), a)
+        b = storage.count(cls=None)
+        self.assertEqual(len(storage.all()), b)
+
 
 if __name__ == "__main__":
     unittest.main()

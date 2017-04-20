@@ -64,6 +64,15 @@ class Test_FileStorage(unittest.TestCase):
         """test State creation with an argument"""
         pass
 
+    def test_get(self):
+        """Test retrieving an object"""
+        my_list = ["name", "id", "created_at", "updated_at"]
+        a = self.get(cls="Amenity", id=test_args['id'])
+        for i in a[test_args['id']].keys():
+            self.assertIn(i, my_list)
+        b = self.get(cls=None, id=test_args['id'])
+        self.assertIs(None, b)
+
 if __name__ == "__main__":
     import sys
     import os
