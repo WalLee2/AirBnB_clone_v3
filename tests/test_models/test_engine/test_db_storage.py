@@ -8,11 +8,7 @@ from models.engine.db_storage import DBStorage
 from models.state import State
 from models import *
 
-"""
-TODO: Need to fix removal of data from database after each test is run.
 
-For now, skipping these tests. Make sure to edit `skipIf` call.
-"""
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE', 'fs') != 'db', "db")
 class Test_DBStorage(unittest.TestCase):
     """
@@ -45,7 +41,6 @@ class Test_DBStorage(unittest.TestCase):
 
         storage.delete(a)
         storage.delete(self.model)
-        storage.save()
 
     def test_save(self):
         test_len = len(storage.all())
@@ -59,7 +54,6 @@ class Test_DBStorage(unittest.TestCase):
 
         storage.delete(a)
         storage.delete(b)
-        storage.save()
 
     def test_reload(self):
         self.model.save()
@@ -70,7 +64,6 @@ class Test_DBStorage(unittest.TestCase):
 
         storage.delete(self.model)
         storage.delete(a)
-        storage.save()
 
     def test_get(self):
         self.model.save()
@@ -80,7 +73,6 @@ class Test_DBStorage(unittest.TestCase):
         self.assertIs(None, b)
 
         storage.delete(self.model)
-        storage.save()
 
     def test_count(self):
         a = storage.count(cls="Amenity")

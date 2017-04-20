@@ -25,9 +25,7 @@ class Test_CityModel(unittest.TestCase):
         model = City(test_args)
         model.save()
         storage.delete(model)
-        storage.save()
         storage.delete(state)
-        storage.save()
 
     def test_var_initialization(self):
         """test simple initialization"""

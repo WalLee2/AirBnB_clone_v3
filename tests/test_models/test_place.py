@@ -64,12 +64,9 @@ class Test_PlaceModel(unittest.TestCase):
         city.save()
         place.save()
         storage.delete(place)
-        storage.save()
         # storage.delete(city) # cascade deletes it
         storage.delete(user)
-        storage.save()
         storage.delete(state)
-        storage.save()
 
 
 @unittest.skipIf(os.getenv('HBNB_TYPE_STORAGE', 'fs') != 'db', "db")

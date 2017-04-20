@@ -33,7 +33,6 @@ class Test_UserModel(unittest.TestCase):
         user = User(test_user)
         user.save()
         storage.delete(user)
-        storage.save()
 
 if __name__ == "__main__":
     unittest.main()

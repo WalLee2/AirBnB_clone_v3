@@ -28,7 +28,6 @@ class Test_StateModel(unittest.TestCase):
         state = State(test_state)
         state.save()
         storage.delete(state)
-        storage.save()
 
 
 if __name__ == "__main__":

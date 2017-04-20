@@ -18,7 +18,6 @@ class Test_AmenityModel(unittest.TestCase):
         model = Amenity(**test_args)
         model.save()
         storage.delete(model)
-        storage.save()
 
     def test_var_initialization(self):
         """test the creation of the model went right"""
