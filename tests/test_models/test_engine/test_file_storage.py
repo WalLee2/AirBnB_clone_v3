@@ -66,12 +66,13 @@ class Test_FileStorage(unittest.TestCase):
 
     def test_get(self):
         """Test retrieving an object"""
+        self.model.save()
         my_list = ["name", "id", "created_at", "updated_at"]
-        a = self.get(cls="Amenity", id=test_args['id'])
-        for i in a[test_args['id']].keys():
+        a = self.store.get("Amenity", 'f519fb40-1f5c-458b-945c-2ee8eaaf4900')
+        for i in a['f519fb40-1f5c-458b-945c-2ee8eaaf4900'].__dict__.keys():
             self.assertIn(i, my_list)
-        b = self.get(cls=None, id=test_args['id'])
-        self.assertIs(None, b)
+        b = self.store.get(None, 'invalid-id')
+        self.assertIsNone(b)
 
 if __name__ == "__main__":
     import sys
