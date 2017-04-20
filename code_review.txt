@@ -1,0 +1,6 @@
+Code Review for code submitted by @WalLee2
+
+The new methods created for the storage classes look good. I don't see any problems with them.
+`test_file_storage.py` could include a test for the `count` method.
+`test_db_storage.py` method `test_get`, maybe include tests to validate that the data retrieved is identical to what we expect. We can test this by making sure it is the right object type (i.e. Amenity), and verifying that the name field matches (i.e. "wifi").
+We can look at these as improvements on the tests, but the functionality implemented looks good.
