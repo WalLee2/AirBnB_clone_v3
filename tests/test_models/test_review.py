@@ -61,9 +61,9 @@ class Test_ReviewModel(unittest.TestCase):
         review.save()
         storage.delete(review)
         storage.delete(place)
-        # storage.delete(city) cascade deletes it
         storage.delete(user)
         storage.delete(state)
+        storage.delete(city)
 
 
 if __name__ == "__main__":

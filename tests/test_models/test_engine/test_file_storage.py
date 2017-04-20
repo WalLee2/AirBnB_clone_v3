@@ -22,6 +22,9 @@ class Test_FileStorage(unittest.TestCase):
 
         self.test_len = len(self.store.all())
 
+    def tearDown(self):
+        self.store.delete(self.model)
+
 #    @classmethod
 #    def tearDownClass(cls):
 #        import os
@@ -42,7 +45,11 @@ class Test_FileStorage(unittest.TestCase):
         a.save()
         self.assertEqual(len(self.store.all()), self.test_len + 2)
 
+        self.store.delete(a)
+        self.store.delete(new_obj)
+
     def test_save(self):
+        pass
         self.test_len = len(self.store.all())
         a = BaseModel()
         a.save()
@@ -52,13 +59,19 @@ class Test_FileStorage(unittest.TestCase):
         b.save()
         self.assertEqual(len(self.store.all()), self.test_len + 2)
 
+        self.store.delete(a)
+        self.store.delete(b)
+
     def test_reload(self):
+        pass
         self.model.save()
         a = BaseModel()
         a.save()
         self.store.reload()
         for value in self.store.all().values():
             self.assertIsInstance(value.created_at, datetime)
+
+        self.store.delete(a)
 
     def test_state(self):
         """test State creation with an argument"""
@@ -73,6 +86,9 @@ class Test_FileStorage(unittest.TestCase):
             self.assertIn(i, my_list)
         b = self.store.get(None, 'invalid-id')
         self.assertIsNone(b)
+
+        self.store.delete(self.model)
+
 
 if __name__ == "__main__":
     import sys

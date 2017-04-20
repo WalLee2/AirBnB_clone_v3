@@ -21,6 +21,9 @@ class Test_BaseModel(unittest.TestCase):
         self.model2 = BaseModel(test_args)
         self.model2.save()
 
+    def tearDown(self):
+        storage.delete(self.model2)
+
     def test_instantiation(self):
         self.assertIsInstance(self.model1, BaseModel)
         self.assertTrue(hasattr(self.model1, "created_at"))
@@ -41,6 +44,8 @@ class Test_BaseModel(unittest.TestCase):
         old_time = self.model2.updated_at
         self.model2.save()
         self.assertNotEqual(old_time, self.model2.updated_at)
+
+        storage.delete(self.model1)
 
     def test_to_json(self):
         jsonified = self.model2.to_json()
