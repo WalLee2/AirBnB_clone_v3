@@ -151,6 +151,8 @@ class Test_Console(unittest.TestCase):
         self.assertTrue("f519fb40-1f5c-458b-945c-2ee8eaaf4900" in output)
         self.assertFalse("123-456-abc" in output)
 
+        self.cli.do_destroy("Amenity " + test_args['id'])
+
     def test_all_correct_with_class(self):
         with captured_output() as (out, err):
             self.cli.do_all("Amenity")
@@ -212,31 +214,41 @@ class Test_Console(unittest.TestCase):
     def test_state_argument(self):
         with captured_output() as (out, err):
             self.cli.do_create('State name="WEIRD"')
+        delete_me = out.getvalue().strip()
         with captured_output() as (out, err):
             self.cli.do_all("State")
         output = out.getvalue().strip()
         self.assertTrue("WEIRD" in output)
 
+        self.cli.do_destroy("State " + delete_me)
+
     def test_city_2_arguments(self):
         with captured_output() as (out, err):
             self.cli.do_create('State name="Arizona"')
-        output = out.getvalue().strip()
+        state = out.getvalue().strip()
         with captured_output() as (out, err):
             self.cli.do_create('City state_id="{}" name="Fremont"'.format(
-                output))
+                state))
+        city = out.getvalue().strip()
+
+        self.cli.do_destroy("State " + state)
+        self.cli.do_destroy("City " + city)
 
     def test_city_2_arguments_space(self):
         with captured_output() as (out, err):
             self.cli.do_create('State name="Arizona"')
-        output = out.getvalue().strip()
+        state = out.getvalue().strip()
         with captured_output() as (out, err):
             self.cli.do_create('City state_id="{}" name="Alpha_Beta"'.format(
-                output))
-        output = out.getvalue().strip()
+                state))
+        city = out.getvalue().strip()
         with captured_output() as (out, err):
-            self.cli.do_show('City {}'.format(output))
+            self.cli.do_show('City {}'.format(city))
         output = out.getvalue().strip()
         self.assertTrue("Alpha Beta" in output)
+
+        self.cli.do_destroy("State " + state)
+        self.cli.do_destroy("City " + city)
 
     def test_place(self):
         with captured_output() as (out, err):
@@ -257,13 +269,19 @@ class Test_Console(unittest.TestCase):
                                ' number_rooms=4 number_bathrooms=1 max_guest=3'
                                ' price_by_night=100 latitude=120.12'
                                ' longitude=101.4'.format(city_id, user_id))
-        output = out.getvalue().strip()
+        place_id = out.getvalue().strip()
         with captured_output() as (out, err):
-            self.cli.do_show('Place {}'.format(output))
+            self.cli.do_show('Place {}'.format(place_id))
         output = out.getvalue().strip()
         self.assertTrue("My house" in output)
         self.assertTrue("100" in output)
         self.assertTrue("120.12" in output)
+
+        self.cli.do_destroy("Place " + place_id)
+        self.cli.do_destroy("User " + user_id)
+        self.cli.do_destroy("City " + city_id)
+        self.cli.do_destroy("State " + state_id)
+
 
 if __name__ == "__main__":
     unittest.main()

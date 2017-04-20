@@ -28,7 +28,7 @@ class Test_DBStorage(unittest.TestCase):
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900),
                      'name': 'wifi'}
         self.model = Amenity(**test_args)
-        self.test_len = 0
+        self.test_len = len(storage.all('Amenity'))
 
     def test_all(self):
         output = storage.all('Amenity')
