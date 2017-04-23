@@ -23,6 +23,8 @@ class PlaceAmenity(Base):
                           primary_key=True, nullable=False)
         amenity_id = Column(String(60), ForeignKey('amenities.id'),
                             primary_key=True, nullable=False)
+        place_amenities = relationship("PlaceAmenity", backref="place",
+                                       cascade="all, delete, delete-orphan")
 
 
 class Place(BaseModel, Base):
@@ -42,7 +44,10 @@ class Place(BaseModel, Base):
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
         amenities = relationship("Amenity", secondary="place_amenity",
-                                 viewonly=True)
+                                 viewonly=False)
+        reviews = relationship("Review", backref="place",
+                               cascade="all, delete, delete-orphan")
+
     else:
         city_id = ""
         user_id = ""
