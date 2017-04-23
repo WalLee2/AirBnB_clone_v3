@@ -45,3 +45,8 @@ Additionally, the console also supports the following command formats:
 - **\<class name>.update(\<id>, \<attribute name>, \<attribute value>)**, which will update an instance of the given class and id with the new attribute;
 - **\<class name>.update(\<id>, \<dictionary representation>)**, which will update an instance of the given class and id with a dictionary of key value pairs that will be new attributes for the objects. 
 - **\<class name>.create(<key>=<value>) create an instance of the class
+
+----------------------------------------
+
+**Relationship Model**
+![Relationship Table Model](https://ibb.co/n5GUO5)
