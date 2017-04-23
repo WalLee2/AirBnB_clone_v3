@@ -49,4 +49,5 @@ Additionally, the console also supports the following command formats:
 ----------------------------------------
 
 **Relationship Model**
-![Relationship Table Model](https://ibb.co/n5GUO5)
+
+![Relationship Table Model](./web_static/images/AirBnb_DB_diagramm.jpg)
