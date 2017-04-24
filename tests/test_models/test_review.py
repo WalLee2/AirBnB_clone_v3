@@ -63,7 +63,6 @@ class Test_ReviewModel(unittest.TestCase):
         storage.delete(place)
         storage.delete(user)
         storage.delete(state)
-        storage.delete(city)
 
 
 if __name__ == "__main__":
