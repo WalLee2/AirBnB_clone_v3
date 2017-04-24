@@ -42,7 +42,7 @@ def create_amenity():
     form_info = request.get_json()
     if not form_info:
         abort(400, 'Not a JSON')
-    if not 'name' in form_info:
+    if 'name' not in form_info:
         abort(400, 'Missing name')
 
     new_amenity = Amenity(name=form_info['name'])
