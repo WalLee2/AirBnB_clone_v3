@@ -23,8 +23,6 @@ class PlaceAmenity(Base):
                           primary_key=True, nullable=False)
         amenity_id = Column(String(60), ForeignKey('amenities.id'),
                             primary_key=True, nullable=False)
-        place_amenities = relationship("PlaceAmenity", backref="place",
-                                       cascade="all, delete, delete-orphan")
 
 
 class Place(BaseModel, Base):
