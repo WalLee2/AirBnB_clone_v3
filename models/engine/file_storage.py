@@ -109,7 +109,7 @@ class FileStorage:
     def get(self, cls, id):
         """Retrieve an object"""
         if id in FileStorage.__objects.keys():
-            if FileStorage.__objects[id]["__class__"] == cls:
+            if cls == FileStorage.__objects[id].__class__.__name__:
                 return FileStorage.__objects[id]
         return None
 
