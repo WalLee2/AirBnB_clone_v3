@@ -59,7 +59,7 @@ def create_state():
         storage.new(new_state)
         my_state = storage.get("State", new_state.id)
         storage.save()
-        return (jsonify(my_state[new_state.id].to_json()), 201)
+        return (jsonify(my_state.to_json()), 201)
 
 
 @app_views.route('/states/<id>', methods=['PUT'])
@@ -69,11 +69,11 @@ def update_state(id):
     """
     state_dict = storage.get("State", id)
     if state_dict is None:
-        return (not_found, 404)
+        return not_found(404)
     check = request.get_json()
     if check is None:
         return (abort(400), 'Not a JSON')
-    dict_value = state_dict.values()[0]
+    dict_value = state_dict
     dict_value.name = check.get('name', dict_value.name)
     dict_value.save()
-    return (jsonify(dict_value.to_json))
+    return (jsonify(dict_value.to_json()))
