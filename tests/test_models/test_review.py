@@ -1,6 +1,7 @@
 import unittest
 from datetime import datetime
 from models import *
+from os import getenv
 
 
 class Test_ReviewModel(unittest.TestCase):
@@ -63,6 +64,8 @@ class Test_ReviewModel(unittest.TestCase):
         storage.delete(place)
         storage.delete(user)
         storage.delete(state)
+        if getenv('HBNB_TYPE_STORAGE', 'fs') == 'fs':
+            storage.delete(city)
 
 
 if __name__ == "__main__":

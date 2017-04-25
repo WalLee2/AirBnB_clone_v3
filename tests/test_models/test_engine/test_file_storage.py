@@ -88,6 +88,15 @@ class Test_FileStorage(unittest.TestCase):
 
         self.store.delete(self.model)
 
+    def test_count(self):
+        """Test storage count"""
+        self.assertEqual(len(self.store.all()), 1)
+        a = Amenity(name="Bob")
+        a.save()
+        self.assertEqual(len(self.store.all()), 2)
+
+        self.store.delete(a)
+
 
 if __name__ == "__main__":
     import sys
