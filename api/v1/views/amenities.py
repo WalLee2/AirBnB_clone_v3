@@ -22,7 +22,7 @@ def get_amenity(amenity_id):
     amenity = storage.get("Amenity", amenity_id)
     if (amenity is None):
         abort(404)
-    return jsonify(amenity[amenity_id].to_json())
+    return jsonify(amenity.to_json())
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['DELETE'])
@@ -32,7 +32,7 @@ def delete_amenity(amenity_id):
     if (amenity is None):
         abort(404)
 
-    storage.delete(amenity[amenity_id])
+    storage.delete(amenity)
     return jsonify({})
 
 
@@ -49,7 +49,7 @@ def create_amenity():
     storage.new(new_amenity)
     amenity = storage.get("Amenity", new_amenity.id)
     storage.save()
-    return jsonify(amenity[new_amenity.id].to_json()), 201
+    return jsonify(amenity.to_json()), 201
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'])
@@ -58,7 +58,6 @@ def update_amenity(amenity_id):
     amenity = storage.get("Amenity", amenity_id)
     if amenity is None:
         abort(404)
-    amenity = amenity[amenity_id]
 
     form_info = request.get_json()
     if not form_info:
