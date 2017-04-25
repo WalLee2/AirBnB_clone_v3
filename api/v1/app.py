@@ -2,10 +2,10 @@
 """
 Running flask on local host and on port 5000
 """
+from api.v1.views import app_views
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
 from models import storage
-from api.v1.views import app_views
 from os import getenv
 
 
