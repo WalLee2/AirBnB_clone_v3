@@ -47,9 +47,8 @@ def create_amenity():
 
     new_amenity = Amenity(name=form_info['name'])
     storage.new(new_amenity)
-    amenity = storage.get("Amenity", new_amenity.id)
     storage.save()
-    return jsonify(amenity.to_json()), 201
+    return jsonify(new_amenity.to_json()), 201
 
 
 @app_views.route('/amenities/<amenity_id>', methods=['PUT'])

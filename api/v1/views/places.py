@@ -82,8 +82,7 @@ def create_place(city_id):
                       longitude=form_info.get('longitude'))
     storage.new(new_place)
     storage.save()
-    place = storage.get("Place", new_place.id)
-    return jsonify(place.to_json()), 201
+    return jsonify(new_place.to_json()), 201
 
 
 @app_views.route('/places/<place_id>', methods=['PUT'])
