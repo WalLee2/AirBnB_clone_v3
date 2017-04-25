@@ -22,7 +22,7 @@ def get_user(user_id):
     user = storage.get("User", user_id)
     if (user is None):
         abort(404)
-    return jsonify(user[user_id].to_json())
+    return jsonify(user.to_json())
 
 
 @app_views.route('/users/<user_id>', methods=['DELETE'])
@@ -31,7 +31,7 @@ def delete_user(user_id):
     if (user is None):
         abort(404)
 
-    storage.delete(user[user_id])
+    storage.delete(user)
     return jsonify({})
 
 
@@ -52,7 +52,7 @@ def create_user():
     storage.new(new_user)
     storage.save()
     user = storage.get("User", new_user.id)
-    return jsonify(user[new_user.id].to_json()), 201
+    return jsonify(user.to_json()), 201
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'])
@@ -60,7 +60,6 @@ def update_user(user_id):
     user = storage.get("User", user_id)
     if user is None:
         abort(404)
-    user = user[user_id]
 
     form_info = request.get_json()
     if not form_info:
