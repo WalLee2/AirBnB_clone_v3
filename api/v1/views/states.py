@@ -28,7 +28,7 @@ def get_specific_state(id):
     to a dictionary and then jsonify converts it into a proper JSON file
     """
     if (storage.get("State", id) is not None):
-        return (jsonify(storage.get("State", id)[id].to_json()))
+        return (jsonify(storage.get("State", id).to_json()))
     else:
         return (not_found(404))
 
@@ -40,7 +40,7 @@ def delete_state(state_id):
     """
     if (storage.get("State", state_id) is None):
         return (not_found(404))
-    storage.delete(storage.get("State", state_id)[state_id])
+    storage.delete(storage.get("State", state_id))
     return (jsonify({}), 200)
 
 @app_views.route('/states/', methods=['POST'])
