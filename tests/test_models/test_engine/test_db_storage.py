@@ -68,7 +68,7 @@ class Test_DBStorage(unittest.TestCase):
     def test_get(self):
         self.model.save()
         a = storage.get("Amenity", "0234")
-        self.assertIs(type(a), dict)
+        self.assertIsInstance(a, Amenity)
         b = storage.get(None, "0234")
         self.assertIs(None, b)
 

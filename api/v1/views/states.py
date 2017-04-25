@@ -10,15 +10,15 @@ from api.v1.app import not_found
 from models.state import State
 
 
-@app_views.route('/states/', methods=['GET'])
+@app_views.route('/states/', methods=['GET'], strict_slashes=False)
 def get_all_state():
     """
     function that grabs all the state objects and returns a JSON list
     """
-    my_list = []
-    for i in storage.all("State").values():
-        my_list = i.to_json()
-    return (jsonify(my_list))
+    states = storage.all("State")
+    states = [v.to_json() for k, v in states.items()]
+    return jsonify(states)
+
 
 @app_views.route('/states/<id>', methods=['GET'])
 def get_specific_state(id):
@@ -32,6 +32,7 @@ def get_specific_state(id):
     else:
         return (not_found(404))
 
+
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def delete_state(state_id):
     """
@@ -42,6 +43,7 @@ def delete_state(state_id):
         return (not_found(404))
     storage.delete(storage.get("State", state_id))
     return (jsonify({}), 200)
+
 
 @app_views.route('/states/', methods=['POST'])
 def create_state():
