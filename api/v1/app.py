@@ -18,6 +18,7 @@ cors = CORS(app, resources={r"/api/*":
                             }})
 """
 
+
 @app.teardown_appcontext
 def app_teardown(exception):
     """
