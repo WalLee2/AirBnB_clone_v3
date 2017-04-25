@@ -19,6 +19,7 @@ def get_all_state():
     states = [v.to_json() for k, v in states.items()]
     return jsonify(states)
 
+
 @app_views.route('/states/<id>', methods=['GET'])
 def get_specific_state(id):
     """
@@ -31,6 +32,7 @@ def get_specific_state(id):
     else:
         return (not_found(404))
 
+
 @app_views.route('/states/<state_id>', methods=['DELETE'])
 def delete_state(state_id):
     """
@@ -41,6 +43,7 @@ def delete_state(state_id):
         return (not_found(404))
     storage.delete(storage.get("State", state_id))
     return (jsonify({}), 200)
+
 
 @app_views.route('/states/', methods=['POST'])
 def create_state():
