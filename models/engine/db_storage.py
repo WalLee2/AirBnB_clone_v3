@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-This is the db_storage module
+This is the db_storage module that has methods to manipulate data and stores it
 """
 from models.base_model import Base
 from sqlalchemy import create_engine
