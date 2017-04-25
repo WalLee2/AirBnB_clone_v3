@@ -105,7 +105,6 @@ class FileStorage:
         """Close a session"""
         self.reload()
 
-
     def get(self, cls, id):
         """Retrieve an object"""
         if id in FileStorage.__objects.keys():
