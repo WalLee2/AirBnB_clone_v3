@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""
+Test file to make sure that file_storage works properly
+"""
 import unittest
 import os
 from datetime import datetime
@@ -13,6 +17,9 @@ class Test_FileStorage(unittest.TestCase):
     """
 
     def setUp(self):
+        """
+        Creating fake data to test with
+        """
         self.store = FileStorage()
 
         test_args = {'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
@@ -23,6 +30,9 @@ class Test_FileStorage(unittest.TestCase):
         self.test_len = len(self.store.all())
 
     def tearDown(self):
+        """
+        creating fake data to test with
+        """
         self.store.delete(self.model)
 
 #    @classmethod
@@ -32,9 +42,15 @@ class Test_FileStorage(unittest.TestCase):
 #            os.remove('test_file.json')
 
     def test_all(self):
+        """
+        Creating fake data to test with
+        """
         self.assertEqual(len(self.store.all()), self.test_len)
 
     def test_new(self):
+        """
+        Creating fake data to test with
+        """
         # note: we cannot assume order of test is order written
         test_len = len(self.store.all())
         # self.assertEqual(len(self.store.all()), self.test_len)
@@ -49,6 +65,9 @@ class Test_FileStorage(unittest.TestCase):
         self.store.delete(new_obj)
 
     def test_save(self):
+        """
+        Creating fake data to test with
+        """
         pass
         self.test_len = len(self.store.all())
         a = BaseModel()
@@ -63,6 +82,9 @@ class Test_FileStorage(unittest.TestCase):
         self.store.delete(b)
 
     def test_reload(self):
+        """
+        Creating fake data to test with
+        """
         pass
         self.model.save()
         a = BaseModel()

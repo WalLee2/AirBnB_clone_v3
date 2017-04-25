@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""
+Test file to make sure db_storage works properly
+"""
 import unittest
 import os.path
 from os import getenv
@@ -16,9 +20,15 @@ class Test_DBStorage(unittest.TestCase):
     """
     @classmethod
     def setUpClass(cls):
+        """
+        Creating fake data to test with
+        """
         storage.reload()
 
     def setUp(self):
+        """
+        Creating fake data to test with
+        """
         test_args = {'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
                      'id': "0234",
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900),
@@ -27,10 +37,16 @@ class Test_DBStorage(unittest.TestCase):
         self.test_len = len(storage.all('Amenity'))
 
     def test_all(self):
+        """
+        Creating fake data to test with
+        """
         output = storage.all('Amenity')
         self.assertEqual(len(output), self.test_len)
 
     def test_new(self):
+        """
+        Creating fake data to test with
+        """
         # note: we cannot assume order of test is order written
         self.test_len = len(storage.all())
         self.model.save()
@@ -43,6 +59,9 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(self.model)
 
     def test_save(self):
+        """
+        Creating fake data to test with
+        """
         test_len = len(storage.all())
         a = Amenity(name="another")
         a.save()
@@ -56,6 +75,9 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(b)
 
     def test_reload(self):
+        """
+        Creating fake data to test with
+        """
         self.model.save()
         a = Amenity(name="different")
         a.save()
@@ -66,6 +88,9 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(a)
 
     def test_get(self):
+        """
+        Creating fake data to test with
+        """
         self.model.save()
         a = storage.get("Amenity", "0234")
         self.assertIs(type(a), dict)
@@ -75,6 +100,9 @@ class Test_DBStorage(unittest.TestCase):
         storage.delete(self.model)
 
     def test_count(self):
+        """
+        Creating fake data to test with
+        """
         a = storage.count(cls="Amenity")
         self.assertEqual(len(storage.all("Amenity")), a)
         b = storage.count(cls=None)
