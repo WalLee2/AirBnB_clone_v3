@@ -65,7 +65,6 @@ def update_user(user_id):
     if not form_info:
         abort(400, 'Not a JSON')
 
-    user.email = form_info.get('email', user.email)
     user.password = form_info.get('email', user.password)
     user.first_name = form_info.get('email', user.first_name)
     user.last_name = form_info.get('email', user.last_name)
