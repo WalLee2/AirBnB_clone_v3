@@ -15,11 +15,12 @@ class Test_FileStorage(unittest.TestCase):
     def setUp(self):
         self.store = FileStorage()
 
-        test_args = {'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
+        test_args = {'name': 'wifi',
+                     'updated_at': datetime(2017, 2, 12, 00, 31, 53, 331997),
                      'id': 'f519fb40-1f5c-458b-945c-2ee8eaaf4900',
                      'created_at': datetime(2017, 2, 12, 00, 31, 53, 331900)}
-        self.model = BaseModel(test_args)
-
+        self.model = Amenity(test_args)
+        self.model.save()
         self.test_len = len(self.store.all())
 
     def tearDown(self):
@@ -49,7 +50,6 @@ class Test_FileStorage(unittest.TestCase):
         self.store.delete(new_obj)
 
     def test_save(self):
-        pass
         self.test_len = len(self.store.all())
         a = BaseModel()
         a.save()
@@ -63,8 +63,6 @@ class Test_FileStorage(unittest.TestCase):
         self.store.delete(b)
 
     def test_reload(self):
-        pass
-        self.model.save()
         a = BaseModel()
         a.save()
         self.store.reload()
@@ -79,11 +77,12 @@ class Test_FileStorage(unittest.TestCase):
 
     def test_get(self):
         """Test retrieving an object"""
-        self.model.save()
         my_list = ["name", "id", "created_at", "updated_at"]
         a = self.store.get("Amenity", 'f519fb40-1f5c-458b-945c-2ee8eaaf4900')
-        for i in a['f519fb40-1f5c-458b-945c-2ee8eaaf4900'].__dict__.keys():
-            self.assertIn(i, my_list)
+        for k in my_list:
+            self.assertIsNotNone(getattr(a, k, None))
+        self.assertIsNone(getattr(a, "fake_key", None))
+
         b = self.store.get(None, 'invalid-id')
         self.assertIsNone(b)
 
