@@ -53,8 +53,7 @@ def create_user():
                     last_name=form_info.get('last_name'))
     storage.new(new_user)
     storage.save()
-    user = storage.get("User", new_user.id)
-    return jsonify(user.to_json()), 201
+    return jsonify(new_user.to_json()), 201
 
 
 @app_views.route('/users/<user_id>', methods=['PUT'])
