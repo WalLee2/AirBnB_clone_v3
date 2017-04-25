@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+This is the db_storage module that has methods to manipulate data and stores it
+"""
 from models.base_model import Base
 from sqlalchemy import create_engine
 from sqlalchemy.orm import (sessionmaker, scoped_session)
@@ -9,9 +12,6 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
-"""
-This is the db_storage module
-"""
 
 
 class DBStorage:
@@ -95,6 +95,7 @@ class DBStorage:
                 if id == i.__dict__['id']:
                     return i
         return None
+
 
     def count(self, cls=None):
         """
