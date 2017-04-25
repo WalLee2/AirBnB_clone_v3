@@ -3,7 +3,7 @@
 Running flask on local host and on port 5000
 """
 from api.v1.views import app_views
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
 from flask_cors import CORS, cross_origin
 from models import storage
 from os import getenv
@@ -28,7 +28,7 @@ def app_teardown(exception):
 
 @app.errorhandler(404)
 def not_found(error):
-    return (jsonify({"error": "Not found"}), 404)
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == "__main__":
