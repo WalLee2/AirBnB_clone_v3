@@ -10,7 +10,8 @@ from api.v1.app import not_found
 from models.city import City
 
 
-@app_views.route('/states/<state_id>/cities', methods=['GET'])
+@app_views.route('/states/<state_id>/cities', methods=['GET'],
+                 strict_slashes=False)
 def get_all_cities(state_id):
     """
     Get all cities from a particular state

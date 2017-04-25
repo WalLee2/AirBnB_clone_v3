@@ -10,7 +10,7 @@ from api.v1.app import not_found
 from models.state import State
 
 
-@app_views.route('/states/', methods=['GET'], strict_slashes=False)
+@app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_all_state():
     """
     function that grabs all the state objects and returns a JSON list
@@ -20,7 +20,7 @@ def get_all_state():
     return jsonify(states)
 
 
-@app_views.route('/states/<id>', methods=['GET'])
+@app_views.route('/states/<id>', methods=['GET'], strict_slashes=False)
 def get_specific_state(id):
     """
     Gets a state with it's specific ID and returns a JSON object
@@ -33,7 +33,7 @@ def get_specific_state(id):
         return (not_found(404))
 
 
-@app_views.route('/states/<state_id>', methods=['DELETE'])
+@app_views.route('/states/<state_id>', methods=['DELETE'], strict_slashes=False)
 def delete_state(state_id):
     """
     Checks if the state object associated with the ID exists.
@@ -45,7 +45,7 @@ def delete_state(state_id):
     return (jsonify({}), 200)
 
 
-@app_views.route('/states/', methods=['POST'])
+@app_views.route('/states', methods=['POST'], strict_slashes=False)
 def create_state():
     """
     Use request.get_json to convert the HTTP body into a dictionary.
@@ -64,7 +64,7 @@ def create_state():
         return (jsonify(my_state.to_json()), 201)
 
 
-@app_views.route('/states/<id>', methods=['PUT'])
+@app_views.route('/states/<id>', methods=['PUT'], strict_slashes=False)
 def update_state(id):
     """
     Update the State object with all key value pairs of the dictionary
