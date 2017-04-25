@@ -96,6 +96,7 @@ class DBStorage:
                     return i
         return None
 
+    """
     def count(self, cls=None):
         """
         count the number of objects in a storage
@@ -104,3 +105,4 @@ class DBStorage:
             return(self.__session.query(self.__models_available[cls]).count())
         else:
             return(len(self.all()))
+    """
