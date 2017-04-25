@@ -27,6 +27,7 @@ def get_user(user_id):
 
 @app_views.route('/users/<user_id>', methods=['DELETE'])
 def delete_user(user_id):
+    """ Route: DELETE /api/v1/users/<user_id> """
     user = storage.get("User", user_id)
     if (user is None):
         abort(404)
@@ -37,6 +38,7 @@ def delete_user(user_id):
 
 @app_views.route('/users', methods=['POST'], strict_slashes=False)
 def create_user():
+    """ Route: POST /api/v1/users """
     form_info = request.get_json()
     if not form_info:
         abort(400, 'Not a JSON')
@@ -57,6 +59,7 @@ def create_user():
 
 @app_views.route('/users/<user_id>', methods=['PUT'])
 def update_user(user_id):
+    """ Route: PUT /api/v1/users/<user_id> """
     user = storage.get("User", user_id)
     if user is None:
         abort(404)
