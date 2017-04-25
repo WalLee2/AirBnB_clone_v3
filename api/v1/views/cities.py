@@ -13,7 +13,7 @@ from models.city import City
 @app_views.route('/states/<state_id>/cities', methods=['GET'])
 def get_all_cities(state_id):
     """
-
+    Get all cities from a particular state
     """
     if state_id is None:
         return (not_found(404))
@@ -30,7 +30,7 @@ def get_all_cities(state_id):
 @app_views.route('/cities/<city_id>', methods=['GET'], strict_slashes=False)
 def one_city(city_id):
     """
-
+    Get one city based off of the given id
     """
     city = storage.get("City", city_id)
     if city is not None:
@@ -42,7 +42,7 @@ def one_city(city_id):
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
 def delete_city(city_id):
     """
-
+    Delete the city based off of the city_id
     """
     if storage.get("City", city_id) is not None:
         storage.delete(storage.get("City", city_id))
@@ -54,7 +54,7 @@ def delete_city(city_id):
                  strict_slashes=False)
 def create_city(state_id):
     """
-
+    Create the city with the given state_id
     """
     state = storage.get("State", state_id)
     data = request.get_json()
@@ -75,7 +75,7 @@ def create_city(state_id):
 @app_views.route('/cities/<city_id>', methods=['PUT'], strict_slashes=False)
 def update_city(city_id):
     """
-
+    Update the existing city with the correct id
     """
     city = storage.get("City", city_id)
     data = request.get_json()
