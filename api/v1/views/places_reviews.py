@@ -25,7 +25,8 @@ def get_reviews(place_id):
     return jsonify(place_reviews)
 
 
-@app_views.route('/reviews/<review_id>', methods=['GET'])
+@app_views.route('/reviews/<review_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_review(review_id):
     """ Route: GET /api/v1/reviews/<review_id> """
     review = storage.get("Review", review_id)
@@ -43,7 +44,7 @@ def delete_review(review_id):
         abort(404)
 
     storage.delete(review)
-    return jsonify({})
+    return (jsonify({}), 200)
 
 
 @app_views.route('/places/<place_id>/reviews',
@@ -72,7 +73,7 @@ def create_review(place_id):
                         text=form_info.get('text'))
     storage.new(new_review)
     storage.save()
-    return jsonify(new_review.to_json()), 201
+    return (jsonify(new_review.to_json()), 201)
 
 
 @app_views.route('/reviews/<review_id>', methods=['PUT'])
@@ -87,4 +88,4 @@ def update_review(review_id):
         abort(400, 'Not a JSON')
 
     review.text = form_info.get('text', review.text)
-    return jsonify(review.to_json())
+    return (jsonify(review.to_json()), 200)
