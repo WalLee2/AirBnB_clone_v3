@@ -90,7 +90,7 @@ class DBStorage:
         """
         Retrieving an object
         """
-        if (cls in self.__models_available.keys()):
+        if (cls in self.__models_available.keys() and id is not None):
             for i in self.__session.query(self.__models_available[cls]):
                 if id == i.__dict__['id']:
                     return i
