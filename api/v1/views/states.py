@@ -2,11 +2,10 @@
 """
 Handles RESTful API actions for State object
 """
-from flask import jsonify, abort, request
 from api.v1.views import app_views
+from flask import jsonify, abort, request
 from models.base_model import BaseModel
 from models import storage
-from api.v1.app import not_found
 from models.state import State
 
 
@@ -30,7 +29,7 @@ def get_specific_state(id):
     if (storage.get("State", id) is not None):
         return (jsonify(storage.get("State", id).to_json()))
     else:
-        return (not_found(404))
+        return (abort(404))
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'],
@@ -41,7 +40,7 @@ def delete_state(state_id):
     Delete it if it exists or return if it's not found
     """
     if (storage.get("State", state_id) is None):
-        return (not_found(404))
+        return (abort(404))
     storage.delete(storage.get("State", state_id))
     return (jsonify({}), 200)
 
@@ -72,7 +71,7 @@ def update_state(id):
     """
     state_dict = storage.get("State", id)
     if state_dict is None:
-        return not_found(404)
+        return abort(404)
     check = request.get_json()
     if check is None:
         return (abort(400), 'Not a JSON')
