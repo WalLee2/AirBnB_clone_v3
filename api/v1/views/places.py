@@ -36,7 +36,8 @@ def get_place(place_id):
     return jsonify(place.to_json())
 
 
-@app_views.route('/places/<place_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/places/<place_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def delete_place(place_id):
     """ Route: DELETE /api/v1/places/<place_id> """
     place = storage.get("Place", place_id)
