@@ -2,11 +2,10 @@
 """
 Handle all default RESTful API actions for City class
 """
-from flask import jsonify, abort, request
 from api.v1.views import app_views
+from flask import jsonify, abort, request
 from models.base_model import BaseModel
 from models import storage
-from api.v1.app import not_found
 from models.city import City
 
 
@@ -17,11 +16,11 @@ def get_all_cities(state_id):
     Get all cities from a particular state
     """
     if state_id is None:
-        return (not_found(404))
+        return (abort(404))
     found_city = []
     my_state = storage.get("State", state_id)
     if my_state is None:
-        return (not_found(404))
+        return (abort(404))
     all_cities = storage.all("City")
     for k, v in all_cities.items():
         if v.state_id == state_id:
@@ -39,7 +38,7 @@ def one_city(city_id):
         city = city.to_json()
         return jsonify(city)
     else:
-        return (not_found(404))
+        return (abort(404))
 
 
 @app_views.route('/cities/<city_id>', methods=['DELETE'], strict_slashes=False)
@@ -51,7 +50,7 @@ def delete_city(city_id):
         storage.delete(storage.get("City", city_id))
         return (jsonify({}), 200)
     else:
-        return not_found(404)
+        return abort(404)
 
 
 @app_views.route('/states/<state_id>/cities', methods=['POST'],
@@ -63,7 +62,7 @@ def create_city(state_id):
     state = storage.get("State", state_id)
     data = request.get_json()
     if state is None:
-        return not_found(404)
+        return abort(404)
     if not data:
         return (abort(400), 'Not a JSON')
     elif data.get("name") is None:
@@ -85,7 +84,7 @@ def update_city(city_id):
     city = storage.get("City", city_id)
     data = request.get_json()
     if city is None:
-        return not_found(404)
+        return abort(404)
     if data is None:
         return abort(400), 'Not a JSON'
     city.name = data.get('name', city.name)
